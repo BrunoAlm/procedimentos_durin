@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:procedimentos_durin/Splash%20Page/splash_page.dart';
+import 'package:procedimentos_durin/Splash_Page/splash_page.dart';
 
 class MeuApp extends StatelessWidget {
   const MeuApp({Key? key}) : super(key: key);
