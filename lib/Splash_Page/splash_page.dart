@@ -1,6 +1,6 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:procedimentos_durin/Home_Page/home_page.dart';
+import 'package:procedimentos_durin/login_page/login_page.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -13,20 +13,20 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return EasySplashScreen(
-      logo: Image.network(
-          'https://cdn4.iconfinder.com/data/icons/logos-brands-5/24/flutter-512.png'),
-      title: Text(
-        "Title",
+      logo: Image.asset('assets/splash_screen_logo.png'),
+      logoSize: 150,
+      title: const Text(
+        "PROCEDIMENTOS E CHAMADOS",
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
         ),
       ),
-      backgroundColor: Colors.grey.shade400,
+      backgroundColor: const Color.fromARGB(255, 231, 231, 231),
       showLoader: true,
-      loadingText: Text("Loading..."),
-      navigator: HomePage(),
-      durationInSeconds: 5,
+      loadingText: const Text("Carregando..."),
+      navigator: const LoginPage(),
+      durationInSeconds: 4,
     );
   }
 }
