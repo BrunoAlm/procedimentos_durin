@@ -5,6 +5,9 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final usuarioEC = TextEditingController();
+    final senhaEC = TextEditingController();
+
     return Scaffold(
       body: Stack(
         children: [
@@ -17,7 +20,6 @@ class LoginPage extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-
           Positioned(
             left: MediaQuery.of(context).size.width * 0.40,
             top: MediaQuery.of(context).size.height * 0.35,
@@ -30,20 +32,18 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
             top: MediaQuery.of(context).size.height * 0.5,
             left: MediaQuery.of(context).size.width * 0.13,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                MeuTextFormField(label: 'Usuário'),
-                SizedBox(height: 30),
-                MeuTextFormField(label: 'Senha'),
+              children: [
+                MeuTextFormField(label: 'Usuário', controller: usuarioEC),
+                const SizedBox(height: 30),
+                MeuTextFormField(label: 'Senha', controller: senhaEC),
               ],
             ),
           ),
-
           Positioned(
             bottom: 10,
             left: MediaQuery.of(context).size.width * 0.10,
@@ -66,14 +66,6 @@ class LoginPage extends StatelessWidget {
               ],
             ),
           )
-          // Positioned(
-          //   top: MediaQuery.of(context).size.height * 0.5,
-          //   child: const MeuTextFormField(),
-          // ),
-          // Positioned(
-          //   top: MediaQuery.of(context).size.height * 0.6,
-          //   child: const MeuTextFormField(),
-          // ),
         ],
       ),
     );
@@ -92,14 +84,18 @@ class BackgroundLoginPage extends StatelessWidget {
 }
 
 class MeuTextFormField extends StatelessWidget {
-  const MeuTextFormField({Key? key, required this.label}) : super(key: key);
+  const MeuTextFormField(
+      {Key? key, required this.label, required this.controller})
+      : super(key: key);
   final String label;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
-        label: Text('    $label  '),
-        fillColor: Colors.white,
+        label: Text(label),
+        contentPadding: const EdgeInsets.only(left: 20),
         constraints: const BoxConstraints(maxWidth: 300),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(40)),
       ),
