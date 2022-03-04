@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:procedimentos_durin/widgets/widgets.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,11 +13,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final usuarioEC = TextEditingController();
     final senhaEC = TextEditingController();
-
-    const meuSnackbar = SnackBar(
-        content: Text(
-      'Usuário ou senha inválidos',
-    ));
 
     return Scaffold(
       body: BackgroundLoginPage(
@@ -49,7 +45,6 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 35),
               ElevatedButton(
                 onPressed: () {
-                  // print(usuarioEC.value.text);
                   if (usuarioEC.value.text == 'Bruno' &&
                       senhaEC.value.text == '123') {
                     Navigator.pushNamed(context, '/home');
@@ -88,10 +83,12 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   const Text(
                     'Não tem uma conta?',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed('/register'),
                     child: Text(
                       'Cadastre-se',
                       style: TextStyle(
@@ -109,54 +106,6 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class BackgroundLoginPage extends StatelessWidget {
-  const BackgroundLoginPage({
-    Key? key,
-    required this.child,
-  }) : super(key: key);
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    var _altura = MediaQuery.of(context).size.height;
-    var _largura = MediaQuery.of(context).size.width;
-
-    return Container(
-      height: _altura,
-      width: _largura,
-      color: const Color.fromARGB(255, 212, 52, 40),
-      child: child,
-    );
-  }
-}
-
-class MeuTextFormField extends StatelessWidget {
-  const MeuTextFormField({
-    Key? key,
-    required this.label,
-    required this.controller,
-    required this.obscureText,
-  }) : super(key: key);
-
-  final String label;
-  final TextEditingController controller;
-  final bool obscureText;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        label: Text(label),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(40)),
-        contentPadding: const EdgeInsets.only(left: 20),
-        constraints: const BoxConstraints(maxWidth: 300),
       ),
     );
   }
