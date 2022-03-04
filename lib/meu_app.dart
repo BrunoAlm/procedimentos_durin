@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:procedimentos_durin/Home_Page/home_page.dart';
 import 'package:procedimentos_durin/Splash_Page/splash_page.dart';
 
 class MeuApp extends StatelessWidget {
@@ -11,6 +12,7 @@ class MeuApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const SplashPage(),
+        '/home': (context) => const HomePage(),
       },
     );
   }

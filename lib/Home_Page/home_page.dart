@@ -30,15 +30,21 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 20),
               // const Divider(thickness: 3),
               const Spacer(flex: 1),
-              const HomePageButtons(texto: 'Procedimentos'),
+              HomePageButtons(texto: 'Procedimentos', onPressed: () {}),
               const SizedBox(height: 15),
-              const HomePageButtons(texto: 'Chamados'),
+              HomePageButtons(texto: 'Chamados', onPressed: () {}),
               const SizedBox(height: 15),
-              const HomePageButtons(texto: 'Anotações'),
+              HomePageButtons(texto: 'Anotações', onPressed: () {}),
               const SizedBox(height: 15),
-              const HomePageButtons(texto: 'Gerenciar Conta'),
+              HomePageButtons(texto: 'Gerenciar Conta', onPressed: () {}),
               const SizedBox(height: 15),
-              const HomePageButtons(texto: 'Desconectar'),
+              HomePageButtons(
+                texto: 'Desconectar',
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/', (route) => false);
+                },
+              ),
               const Spacer(flex: 1),
             ],
           ),
@@ -49,8 +55,15 @@ class HomePage extends StatelessWidget {
 }
 
 class HomePageButtons extends StatelessWidget {
-  const HomePageButtons({Key? key, required this.texto}) : super(key: key);
+  const HomePageButtons({
+    Key? key,
+    required this.texto,
+    required this.onPressed,
+  }) : super(key: key);
+
   final String texto;
+  final Function()? onPressed;
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -58,7 +71,7 @@ class HomePageButtons extends StatelessWidget {
         primary: Colors.red,
         padding: const EdgeInsets.symmetric(vertical: 15),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       child: Text(
         texto,
         style: const TextStyle(
