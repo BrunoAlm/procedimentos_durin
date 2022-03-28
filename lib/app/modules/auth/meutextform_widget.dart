@@ -1,29 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:procedimentos_durin/app/design/durosystem.dart';
 
-class BackgroundLoginPage extends StatelessWidget {
-  const BackgroundLoginPage({
+class MeutextformWidget extends StatelessWidget {
+  final String title;
+  const MeutextformWidget({
     Key? key,
-    required this.child,
-  }) : super(key: key);
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    var _altura = MediaQuery.of(context).size.height;
-    var _largura = MediaQuery.of(context).size.width;
-
-    return Container(
-      height: _altura,
-      width: _largura,
-      color: const Color.fromARGB(255, 212, 52, 40),
-      child: child,
-    );
-  }
-}
-
-class MeuTextFormField extends StatelessWidget {
-  const MeuTextFormField({
-    Key? key,
+    this.title = "MeutextformWidget",
     required this.label,
     required this.controller,
     required this.obscureText,
@@ -40,14 +22,16 @@ class MeuTextFormField extends StatelessWidget {
       obscureText: obscureText,
       decoration: InputDecoration(
         label: Text(label),
-        labelStyle: const TextStyle(color: Colors.white),
+        labelStyle: const TextStyle(color: DuroSystemColors.meioBranco),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.white, width: 2),
+          borderSide:
+              const BorderSide(color: DuroSystemColors.meioBranco, width: 2),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.white, width: 4),
+          borderSide:
+              const BorderSide(color: DuroSystemColors.meioBranco, width: 3),
         ),
         contentPadding: const EdgeInsets.only(left: 20),
         constraints: const BoxConstraints(maxWidth: 300),

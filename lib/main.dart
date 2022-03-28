@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:mysql1/mysql1.dart';
-import 'package:procedimentos_durin/meu_app.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-void main() async {
-  
-  runApp(const MeuApp());
+import 'app/app_module.dart';
+import 'app/app_widget.dart';
+
+void main() {
+  Modular.to.addListener(() {
+    print(Modular.to.path);
+  });
+  runApp(
+    ModularApp(
+      module: AppModule(),
+      child: const AppWidget(),
+    ),
+  );
 }
