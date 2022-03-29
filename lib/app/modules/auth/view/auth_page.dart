@@ -84,6 +84,7 @@ class AuthPageState extends State<AuthPage> {
                   if (logou) {
                     print(
                         ' $nomeEncontrado, logado com a senha $senhaEncontrada');
+                    Modular.to.navigate('/home');
                   } else {
                     showDialog(
                       context: context,

@@ -38,12 +38,21 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
           ),
           const SizedBox(height: 100),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: ElevatedButton(
                 onPressed: () {
                   Modular.to.pushNamed('./chamado/');
                 },
                 child: const Text('Chamados')),
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: ElevatedButton(
+                onPressed: () {
+                  Modular.to.popAndPushNamed('/auth/login');
+                },
+                child: const Text('Sair')),
           ),
         ],
       ),
