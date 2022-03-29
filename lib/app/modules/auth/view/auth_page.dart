@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
+import 'package:procedimentos_durin/app/modules/auth/controller/auth_store.dart';
 import 'package:procedimentos_durin/app/modules/auth/meutextform_widget.dart';
-import 'package:procedimentos_durin/app/modules/auth/model/user_model.dart';
 
 class AuthPage extends StatefulWidget {
   final String title;
@@ -12,9 +12,21 @@ class AuthPage extends StatefulWidget {
 }
 
 class AuthPageState extends State<AuthPage> {
+  final AuthController _authController = Modular.get();
+
+  @override
+  void initState() {
+    _authController.getUsers();
+
+    super.initState();
+  }
+
+  bool visible = true;
+  bool logou = false;
+
   @override
   Widget build(BuildContext context) {
-    final usuarioEC = TextEditingController();
+    final nomeEC = TextEditingController();
     final senhaEC = TextEditingController();
     // var model = UserModel(usuario: usuarioEC.text, senha: senhaEC.text);
     return Scaffold(
@@ -41,17 +53,53 @@ class AuthPageState extends State<AuthPage> {
             ),
             const SizedBox(height: 30),
             MeutextformWidget(
-                label: 'Usuário', controller: usuarioEC, obscureText: false),
+                label: 'Usuário', controller: nomeEC, obscureText: false),
             const SizedBox(height: 15),
             MeutextformWidget(
                 label: 'Senha', controller: senhaEC, obscureText: true),
             const SizedBox(height: 35),
             ElevatedButton(
-              onPressed: () {
-                if (usuarioEC.value.text == 'Bruno' &&
-                    senhaEC.value.text == '123') {
-                  Modular.to.navigate('/home/');
-                  // Navigator.pushNamed(context, '/home');
+              onPressed: () async {
+                String? nomeEncontrado, senhaEncontrada;
+                setState(() {
+                  visible = false;
+                });
+                await _authController.getUsers();
+                setState(() {
+                  visible = true;
+                });
+
+                if (_authController.listUsers.isNotEmpty) {
+                  for (var item in _authController.listUsers) {
+                    if (item.nome == nomeEC.value.text &&
+                        item.senha == senhaEC.value.text) {
+                      nomeEncontrado = item.nome;
+                      senhaEncontrada = item.senha;
+                      setState(() {
+                        logou = true;
+                      });
+                    }
+                  }
+
+                  if (logou) {
+                    print(
+                        ' $nomeEncontrado, logado com a senha $senhaEncontrada');
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const Text('Erro'),
+                        content: const Text('Usuário ou senha inválidos'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Voltar'))
+                        ],
+                      ),
+                    );
+                  }
                 } else {
                   showDialog(
                     context: context,
@@ -69,13 +117,22 @@ class AuthPageState extends State<AuthPage> {
                   );
                 }
               },
-              child: const Text(
-                'Entrar',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                ),
-              ),
+              child: visible
+                  ? const Text(
+                      'Entrar',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                    )
+                  : Container(
+                      height: 16,
+                      width: 16,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 13, vertical: 2),
+                      child: const CircularProgressIndicator(
+                        color: DuroSystemColors.vermelho,
+                      )),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(20),
                 primary: DuroSystemColors.meioBranco,

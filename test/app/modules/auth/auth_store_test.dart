@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:procedimentos_durin/app/modules/auth/auth_store.dart';
+import 'package:procedimentos_durin/app/modules/auth/controller/auth_store.dart';
  
 void main() {
   late AuthStore store;

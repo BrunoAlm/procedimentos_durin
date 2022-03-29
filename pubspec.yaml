@@ -16,6 +16,7 @@ dependencies:
   flutter_modular: ^3.4.1+1
   flutter_triple: ^1.2.7+2
   hasura_connect: ^4.0.0+2
+  flutter_mobx: ^2.0.4
 
 dev_dependencies:
   flutter_test:
@@ -24,6 +25,8 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   triple_test: ^1.0.0
   flutter_modular_test: ^1.0.4
+  build_runner:
+  mobx_codegen:
 
 flutter:
   uses-material-design: true
