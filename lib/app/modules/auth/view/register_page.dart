@@ -15,7 +15,7 @@ class RegisterPage extends StatefulWidget {
 class RegisterPageState extends State<RegisterPage> {
   final AuthController _authController = Modular.get();
   final _formKey = GlobalKey<FormState>();
-  String? selectedValue;
+  // String? selectedValue;
   List<String> listaSetores = [
     'ADM DE VENDAS',
     'GERÊNCIA COMERCIAL',
@@ -45,7 +45,7 @@ class RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     final nomeEC = TextEditingController();
     final senhaEC = TextEditingController();
-    final setorEC = TextEditingController();
+    // final setorEC = TextEditingController();
     // var model = UserModel(usuario: usuarioEC.text, senha: senhaEC.text);
     return Scaffold(
       appBar: AppBar(
@@ -101,12 +101,16 @@ class RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 15),
                 CustomDropdownButton2(
+                  value: _authController.selectedValue,
+                  validator: (value) {
+                    return value != _authController.selectedValue
+                        ? 'Preencha o campo'
+                        : null;
+                  },
                   dropdownItems: listaSetores,
-                  value: selectedValue,
                   onChanged: (value) {
-                    setState(() {
-                      selectedValue = value as String;
-                    });
+                    _authController.selectedValue = value as String;
+                    _authController.setSetor(value);
                   },
                   hint: 'Selecione o setor',
                   buttonHeight: 50,

@@ -6,6 +6,7 @@ import 'app/app_widget.dart';
 
 void main() {
   Modular.to.addListener(() {
+    // ignore: avoid_print
     print(Modular.to.path);
   });
   runApp(

@@ -1,6 +1,9 @@
+// ignore_for_file: file_names
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
+import 'package:procedimentos_durin/app/modules/auth/widgets/meutextform_widget.dart';
 
 class CustomDropdownButton2 extends StatelessWidget {
   final String hint;
@@ -28,12 +31,14 @@ class CustomDropdownButton2 extends StatelessWidget {
   final double? scrollbarThickness;
   final bool? scrollbarAlwaysShow;
   final Offset? offset;
+  final String? Function(String?)? validator;
 
   const CustomDropdownButton2({
     required this.hint,
     required this.value,
     required this.dropdownItems,
     required this.onChanged,
+    required this.validator,
     this.selectedItemBuilder,
     this.hintAlignment,
     this.valueAlignment,
@@ -63,7 +68,8 @@ class CustomDropdownButton2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
-      child: DropdownButton2(
+      child: DropdownButtonFormField2(
+        validator: validator,
         //To avoid long text overflowing.
         isExpanded: true,
         selectedItemHighlightColor: Colors.black.withOpacity(0.3),
@@ -114,20 +120,49 @@ class CustomDropdownButton2 extends StatelessWidget {
         buttonWidth: buttonWidth ?? 140,
         buttonPadding:
             buttonPadding ?? const EdgeInsets.only(left: 14, right: 14),
-        buttonDecoration: buttonDecoration ??
-            BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: DuroSystemColors.meioBranco,
-                width: 2,
-              ),
-            ),
+
+        decoration: InputDecoration(
+          // label: Text(label),
+          labelStyle: const TextStyle(
+              color: DuroSystemColors.meioBranco, fontWeight: FontWeight.bold),
+          enabledBorder: minhaBorder(),
+          focusedBorder: minhaBorder(),
+          errorBorder: minhaBorder(),
+          focusedErrorBorder: minhaBorder(),
+          hintMaxLines: 1,
+          floatingLabelStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+          ),
+          errorStyle: const TextStyle(
+            color: Colors.black54,
+            fontSize: 14,
+            //backgroundColor: Colors.white.withOpacity(0.5),
+            wordSpacing: 1.4,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+            height: 0.8,
+            decoration: TextDecoration.underline,
+          ),
+          contentPadding: const EdgeInsets.only(left: 20),
+          constraints: const BoxConstraints(maxWidth: 300),
+        ),
+        // buttonDecoration: buttonDecoration ??
+        //     BoxDecoration(
+        //       borderRadius: BorderRadius.circular(10),
+        //       border: Border.all(
+        //         color: DuroSystemColors.meioBranco,
+        //         width: 2,
+        //       ),
+        //     ),
         buttonElevation: buttonElevation,
         itemHeight: itemHeight ?? 40,
         itemPadding: itemPadding ?? const EdgeInsets.only(left: 14, right: 14),
         //Max height for the dropdown menu & becoming scrollable if there are more items. If you pass Null it will take max height possible for the items.
         dropdownMaxHeight: dropdownHeight ?? 200,
         dropdownWidth: dropdownWidth ?? 140,
+
         dropdownPadding: dropdownPadding,
         dropdownDecoration: dropdownDecoration ??
             BoxDecoration(

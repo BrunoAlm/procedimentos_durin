@@ -15,7 +15,7 @@ class ChamadosPageState extends State<ChamadosPage> {
         title: Text(widget.title),
       ),
       body: Column(
-        children: [],
+        children: const [],
       ),
     );
   }

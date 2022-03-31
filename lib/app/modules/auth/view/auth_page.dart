@@ -76,8 +76,9 @@ class AuthPageState extends State<AuthPage> {
               const SizedBox(height: 35),
               ElevatedButton(
                 onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
+                    // ignore: unused_local_variable
                     String? nomeEncontrado, senhaEncontrada;
+                  if (_formKey.currentState!.validate()) {
                     setState(() {
                       visible = false;
                     });

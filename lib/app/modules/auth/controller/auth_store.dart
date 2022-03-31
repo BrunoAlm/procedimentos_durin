@@ -29,6 +29,9 @@ abstract class _AuthControllerBase with Store {
   @observable
   List<UserModel> listUsers = <UserModel>[].asObservable();
 
+  @observable
+  String? selectedValue;
+
   @action
   getUsers() async {
     listUsers = await repository.getUsers();
