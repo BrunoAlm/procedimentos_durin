@@ -16,15 +16,15 @@ abstract class _AuthControllerBase with Store {
   @action
   setName(value) => nome = value;
 
-  // @observable
-  // String setor = '';
-  // @action
-  // setSetor(value) => setor = value;
-
   @observable
   String senha = '';
   @action
   setSenha(value) => senha = value;
+
+  @observable
+  String setor = '';
+  @action
+  setSetor(value) => setor = value;
 
   @observable
   List<UserModel> listUsers = <UserModel>[].asObservable();
@@ -34,10 +34,10 @@ abstract class _AuthControllerBase with Store {
     listUsers = await repository.getUsers();
   }
 
-  //novo método adicionado
-  // @action
-  // addUser() async {
-  //   await repository.addCard(nome, senha, setor);
-  //   await getUsers();
-  // }
+  // novo método adicionado
+  @action
+  addUser() async {
+    await repository.addCard(nome: nome, senha: senha, setor: setor);
+    await getUsers();
+  }
 }

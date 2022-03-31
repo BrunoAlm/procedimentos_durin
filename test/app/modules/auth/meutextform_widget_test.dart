@@ -1,4 +1,4 @@
-import 'package:procedimentos_durin/app/modules/auth/meutextform_widget.dart';
+import 'package:procedimentos_durin/app/modules/auth/widgets/meutextform_widget.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_modular_test/flutter_modular_test.dart';
 

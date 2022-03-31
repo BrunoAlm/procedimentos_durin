@@ -51,7 +51,7 @@ class UserRepository {
   }
 
   // novo método adicionado
-  Future<String> addCard(String nome, String setor, String senha) async {
+  Future<String> addCard({required String nome, required String setor, required String senha}) async {
     var query = """
       mutation addUsers(\$nome:String!, \$setor:String!, \$senha:String!) {
       insert_procedimentos_durin_usuarios(objects: {nome: \$nome, setor: \$setor, senha: \$senha}) {
