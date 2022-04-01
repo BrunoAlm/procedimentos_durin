@@ -29,8 +29,17 @@ abstract class _AuthControllerBase with Store {
   @observable
   List<UserModel> listUsers = <UserModel>[].asObservable();
 
+// TEMPORARIO AINDA NÃO SEI FAZER
   @observable
   String? selectedValue;
+
+  @observable
+  bool obscureText = true;
+
+  @action
+  desobscure() {
+    obscureText = !obscureText;
+  }
 
   @action
   getUsers() async {

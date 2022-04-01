@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
+import 'package:procedimentos_durin/app/modules/auth/controller/auth_store.dart';
+import 'package:procedimentos_durin/app/modules/auth/widgets/botaoDoOlhinho.dart';
 
-class MeutextformWidget extends StatelessWidget {
+class MeutextformWidget extends StatefulWidget {
   const MeutextformWidget({
     Key? key,
     required this.label,
     required this.controller,
-    required this.obscureText,
     required this.validator,
     required this.onChanged,
     this.suffix,
@@ -14,18 +16,25 @@ class MeutextformWidget extends StatelessWidget {
 
   final String label;
   final TextEditingController controller;
-  final bool obscureText;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
-  final Widget? suffix;
+  final String? suffix;
+
+  @override
+  State<MeutextformWidget> createState() => _MeutextformWidgetState();
+}
+
+class _MeutextformWidgetState extends State<MeutextformWidget> {
+  final AuthController _authController = Modular.get();
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: validator,
-      controller: controller,
-      obscureText: obscureText,
-      onChanged: onChanged,
+      validator: widget.validator,
+      controller: widget.controller,
+      obscureText: _authController.obscureText,
+      onChanged: widget.onChanged,
       style: const TextStyle(
           color: DuroSystemColors.vermelho,
           textBaseline: TextBaseline.alphabetic),
@@ -33,7 +42,7 @@ class MeutextformWidget extends StatelessWidget {
         paste: true,
       ),
       decoration: InputDecoration(
-        label: Text(label),
+        label: Text(widget.label),
         labelStyle: const TextStyle(
             color: DuroSystemColors.vermelho, fontWeight: FontWeight.bold),
         enabledBorder: minhaBorder(),
@@ -56,7 +65,15 @@ class MeutextformWidget extends StatelessWidget {
           height: 0.8,
           decoration: TextDecoration.underline,
         ),
-        suffix: suffix ?? const SizedBox(),
+        suffix: widget.suffix == 'sim'
+            ? BotaoDoOlhinho(
+                onPressed: () {
+                  setState(() {
+                    _authController.desobscure();
+                  });
+                },
+              )
+            : const SizedBox(),
         contentPadding: const EdgeInsets.only(left: 20),
         constraints: const BoxConstraints(maxWidth: 300),
       ),

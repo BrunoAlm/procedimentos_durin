@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
 import 'package:procedimentos_durin/app/modules/auth/controller/auth_store.dart';
-import 'package:procedimentos_durin/app/modules/auth/widgets/botaoDoOlhinho.dart';
 import 'package:procedimentos_durin/app/modules/auth/widgets/meuDropdown.dart';
 import 'package:procedimentos_durin/app/modules/auth/widgets/meutextform_widget.dart';
 
@@ -40,16 +39,15 @@ class RegisterPageState extends State<RegisterPage> {
 
   bool visible = true;
   bool logou = false;
-  bool obscureText = true;
 
   @override
   Widget build(BuildContext context) {
     final nomeEC = TextEditingController();
     final senhaEC = TextEditingController();
 
-    var LarguraDaTela = MediaQuery.of(context).size.width;
-    var AlturaDaTela = MediaQuery.of(context).size.height;
-
+    var _larguraDaTela = MediaQuery.of(context).size.width;
+    var _alturaDaTela = MediaQuery.of(context).size.height;
+    bool isMobile = _larguraDaTela <= 500 ? true : false;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: DuroSystemColors.meioBranco,
@@ -68,8 +66,8 @@ class RegisterPageState extends State<RegisterPage> {
       body: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            maxHeight: AlturaDaTela * 0.8,
-            maxWidth: LarguraDaTela * 0.4,
+            maxHeight: isMobile ? _alturaDaTela * 0.7 : _alturaDaTela * 0.8,
+            maxWidth: isMobile ? _larguraDaTela * 0.9 : _larguraDaTela * 0.4,
           ),
           child: SizedBox.expand(
             child: Card(
@@ -100,7 +98,6 @@ class RegisterPageState extends State<RegisterPage> {
                       label: 'Usuário',
                       controller: nomeEC,
                       onChanged: _authController.setName,
-                      obscureText: false,
                       validator: (value) =>
                           value!.isEmpty ? 'Preencha o campo' : null,
                     ),
@@ -111,18 +108,13 @@ class RegisterPageState extends State<RegisterPage> {
                       onChanged: _authController.setSenha,
                       validator: (value) =>
                           value!.isEmpty ? 'Preencha o campo' : null,
-                      obscureText: obscureText,
-                      suffix: BotaoDoOlhinho(onPressed: () {
-                        setState(() {
-                          obscureText = !obscureText;
-                        });
-                      }),
+                      suffix: 'sim',
                     ),
                     const SizedBox(height: 15),
                     CustomDropdownButton2(
                       value: _authController.selectedValue,
                       validator: (value) {
-                        return value == null ? 'Preencha o campo' : null;
+                        return value!.isEmpty ? 'Preencha o campo' : null;
                       },
                       dropdownItems: listaSetores,
                       onChanged: (value) {

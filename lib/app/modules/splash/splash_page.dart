@@ -44,7 +44,12 @@ class SplashPageState extends State<SplashPage> {
                           color: DuroSystemColors.meioBranco, strokeWidth: 3),
                     ),
                     SizedBox(width: 10),
-                    Text('Carregando...'),
+                    Text(
+                      'Carregando...',
+                      style: TextStyle(
+                        color: DuroSystemColors.meioBranco,
+                      ),
+                    ),
                   ],
                 ),
               ),

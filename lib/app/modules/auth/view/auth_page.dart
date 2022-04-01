@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
 import 'package:procedimentos_durin/app/modules/auth/controller/auth_store.dart';
+import 'package:procedimentos_durin/app/modules/auth/widgets/meuErroDialog.dart';
 import 'package:procedimentos_durin/app/modules/auth/widgets/meutextform_widget.dart';
 
 class AuthPage extends StatefulWidget {
@@ -59,7 +60,6 @@ class AuthPageState extends State<AuthPage> {
                 label: 'Usuário',
                 controller: nomeEC,
                 onChanged: _authController.setName,
-                obscureText: false,
                 validator: (value) =>
                     value!.isEmpty ? 'Preencha o campo' : null,
               ),
@@ -68,7 +68,7 @@ class AuthPageState extends State<AuthPage> {
                 label: 'Senha',
                 controller: senhaEC,
                 onChanged: _authController.setSenha,
-                obscureText: true,
+                suffix: 'sim',
                 validator: (value) =>
                     value!.isEmpty ? 'Preencha o campo' : null,
               ),
@@ -87,6 +87,7 @@ class AuthPageState extends State<AuthPage> {
                     });
                     if (_authController.listUsers.isNotEmpty) {
                       for (var item in _authController.listUsers) {
+                        print(item.nome);
                         if (item.nome == nomeEC.value.text &&
                             item.senha == senhaEC.value.text) {
                           nomeEncontrado = item.nome;
@@ -97,8 +98,10 @@ class AuthPageState extends State<AuthPage> {
                         }
                       }
                       if (logou) {
+                        print('tem');
                         Modular.to.navigate('./home');
                       } else {
+                        print('n tem usuario');
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 dismissDirection: DismissDirection.up,
@@ -117,7 +120,7 @@ class AuthPageState extends State<AuthPage> {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         behavior: SnackBarBehavior.floating,
                         dismissDirection: DismissDirection.up,
-                        content: Text('Usuario ou senha incorretos'),
+                        content: Text('Não tem usuario cadastrado na base'),
                       ));
 
                       // meuErroDialog(context);
