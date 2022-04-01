@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
 import 'package:procedimentos_durin/app/modules/auth/controller/auth_store.dart';
-import 'package:procedimentos_durin/app/modules/auth/widgets/meuErroDialog.dart';
 import 'package:procedimentos_durin/app/modules/auth/widgets/meutextform_widget.dart';
+import 'package:asuka/asuka.dart' as asuka;
 
 class AuthPage extends StatefulWidget {
   final String title;
@@ -102,19 +102,20 @@ class AuthPageState extends State<AuthPage> {
                         Modular.to.navigate('./home');
                       } else {
                         print('n tem usuario');
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                dismissDirection: DismissDirection.up,
-                                behavior: SnackBarBehavior.floating,
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: 500, vertical: 150),
-                                content: SizedBox(
-                                    height: 200,
-                                    width: 200,
-                                    child: Center(
-                                        child: Text(
-                                            'Usuario ou senha incorretos')))));
-                        // meuErroDialog(context);
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //     const SnackBar(
+                        //         dismissDirection: DismissDirection.up,
+                        //         behavior: SnackBarBehavior.floating,
+                        //         margin: EdgeInsets.symmetric(
+                        //             horizontal: 500, vertical: 150),
+                        //         content: SizedBox(
+                        //             height: 200,
+                        //             width: 200,
+                        //             child: Center(
+                        //                 child: Text(
+                        //                     'Usuario ou senha incorretos')))));
+                        asuka.AsukaSnackbar.alert("Usuário ou senha incorretos")
+                            .show();
                       }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

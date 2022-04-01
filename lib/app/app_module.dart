@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hasura_connect/hasura_connect.dart';
 import 'package:procedimentos_durin/app/modules/splash/splash_module.dart';
@@ -12,7 +13,7 @@ class AppModule extends Module {
                 'UQWt54LcSNSqtlkJMXSeMtKbb8sIi4absKtFs1dqJphBigKnUIKAkQhJ32nbi7PB',
             'content-type': 'application/json',
           }),
-    )
+    ),
   ];
 
   @override

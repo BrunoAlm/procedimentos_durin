@@ -114,7 +114,7 @@ class RegisterPageState extends State<RegisterPage> {
                     CustomDropdownButton2(
                       value: _authController.selectedValue,
                       validator: (value) {
-                        return value!.isEmpty ? 'Preencha o campo' : null;
+                        return value == null ? 'Preencha o campo' : null;
                       },
                       dropdownItems: listaSetores,
                       onChanged: (value) {

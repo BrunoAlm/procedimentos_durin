@@ -28,3 +28,25 @@ void meuErroDialog(BuildContext context) => showDialog(
         ],
       ),
     );
+
+class MinhaSnackBack extends StatefulWidget {
+  const MinhaSnackBack({ Key? key }) : super(key: key);
+
+  @override
+  State<MinhaSnackBack> createState() => _MinhaSnackBackState();
+}
+
+class _MinhaSnackBackState extends State<MinhaSnackBack> {
+  @override
+  Widget build(BuildContext context) {
+    const snackBar = SnackBar(
+  content: Text('Yay! A SnackBar!'),
+);
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+    return Scaffold(
+      
+    );
+  }
+}
