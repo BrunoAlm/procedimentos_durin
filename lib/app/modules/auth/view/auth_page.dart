@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
 import 'package:procedimentos_durin/app/modules/auth/controller/auth_store.dart';
-import 'package:procedimentos_durin/app/modules/auth/widgets/meuErroDialog.dart';
 import 'package:procedimentos_durin/app/modules/auth/widgets/meutextform_widget.dart';
 
 class AuthPage extends StatefulWidget {
@@ -32,7 +31,7 @@ class AuthPageState extends State<AuthPage> {
     final _formKey = GlobalKey<FormState>();
     // var model = UserModel(usuario: usuarioEC.text, senha: senhaEC.text);
     return Scaffold(
-      backgroundColor: DuroSystemColors.vermelho,
+      backgroundColor: DuroSystemColors.meioBranco,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
@@ -44,13 +43,13 @@ class AuthPageState extends State<AuthPage> {
               const Spacer(flex: 1),
               Image.asset(
                 'assets/splash_screen_logo.png',
-                color: DuroSystemColors.meioBranco,
+                color: DuroSystemColors.vermelho,
               ),
               const SizedBox(height: 30),
               const Text(
                 'Entrar na conta',
                 style: TextStyle(
-                  color: DuroSystemColors.meioBranco,
+                  color: DuroSystemColors.vermelho,
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
@@ -76,8 +75,8 @@ class AuthPageState extends State<AuthPage> {
               const SizedBox(height: 35),
               ElevatedButton(
                 onPressed: () async {
-                    // ignore: unused_local_variable
-                    String? nomeEncontrado, senhaEncontrada;
+                  // ignore: unused_local_variable
+                  String? nomeEncontrado, senhaEncontrada;
                   if (_formKey.currentState!.validate()) {
                     setState(() {
                       visible = false;
@@ -86,13 +85,8 @@ class AuthPageState extends State<AuthPage> {
                     setState(() {
                       visible = true;
                     });
-
                     if (_authController.listUsers.isNotEmpty) {
                       for (var item in _authController.listUsers) {
-                        // print('Nome: ${item.nome}');
-                        // print('Senha: ${item.senha}');
-                        // print('Setor: ${item.setor}');
-                        // print('\n');
                         if (item.nome == nomeEC.value.text &&
                             item.senha == senhaEC.value.text) {
                           nomeEncontrado = item.nome;
@@ -102,47 +96,31 @@ class AuthPageState extends State<AuthPage> {
                           });
                         }
                       }
-
                       if (logou) {
-                        // print(
-                        //     ' $nomeEncontrado, logado com a senha $senhaEncontrada');
                         Modular.to.navigate('./home');
                       } else {
-                        meuErroDialog(context);
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (_) => AlertDialog(
-                        //     title: const Text('Erro'),
-                        //     content: const Text('Usuário ou senha inválidos'),
-                        //     actions: [
-                        //       TextButton(
-                        //           onPressed: () {
-                        //             Navigator.pop(context);
-                        //           },
-                        //           child: const Text('Voltar'))
-                        //     ],
-                        //   ),
-                        // );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                dismissDirection: DismissDirection.up,
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 500, vertical: 150),
+                                content: SizedBox(
+                                    height: 200,
+                                    width: 200,
+                                    child: Center(
+                                        child: Text(
+                                            'Usuario ou senha incorretos')))));
+                        // meuErroDialog(context);
                       }
                     } else {
-                      showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          title: const Text('Erro'),
-                          content: const Text('Usuário ou senha inválidos'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text(
-                                'Voltar',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        dismissDirection: DismissDirection.up,
+                        content: Text('Usuario ou senha incorretos'),
+                      ));
+
+                      // meuErroDialog(context);
                     }
                   }
                 },
@@ -151,7 +129,7 @@ class AuthPageState extends State<AuthPage> {
                         'Entrar',
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.black,
+                          color: DuroSystemColors.meioBranco,
                         ),
                       )
                     : Container(
@@ -160,12 +138,13 @@ class AuthPageState extends State<AuthPage> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 13, vertical: 2),
                         child: const CircularProgressIndicator(
-                          color: DuroSystemColors.vermelho,
+                          color: DuroSystemColors.meioBranco,
                         )),
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(20),
-                  primary: DuroSystemColors.meioBranco,
-                ),
+                    padding: const EdgeInsets.all(20),
+                    primary: DuroSystemColors.vermelho,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)))),
               ),
               const Spacer(flex: 1),
               Row(
@@ -175,15 +154,15 @@ class AuthPageState extends State<AuthPage> {
                     'Não tem uma conta?',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: DuroSystemColors.meioBranco),
+                        color: DuroSystemColors.vermelho),
                   ),
                   TextButton(
                     onPressed: () => Modular.to.navigate('./register'),
-                    child: Text(
+                    child: const Text(
                       'Cadastre-se',
                       style: TextStyle(
-                        color: Colors.blue.shade300,
-                        decorationColor: Colors.white,
+                        color: Colors.grey,
+                        decorationColor: Colors.black,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
                         decorationStyle: TextDecorationStyle.wavy,

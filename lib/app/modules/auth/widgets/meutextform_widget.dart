@@ -7,7 +7,9 @@ class MeutextformWidget extends StatelessWidget {
     required this.label,
     required this.controller,
     required this.obscureText,
-    required this.validator, required this.onChanged,
+    required this.validator,
+    required this.onChanged,
+    this.suffix,
   }) : super(key: key);
 
   final String label;
@@ -15,28 +17,32 @@ class MeutextformWidget extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
+  final Widget? suffix;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validator,
       controller: controller,
       obscureText: obscureText,
       onChanged: onChanged,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(
+          color: DuroSystemColors.vermelho,
+          textBaseline: TextBaseline.alphabetic),
       toolbarOptions: const ToolbarOptions(
         paste: true,
       ),
       decoration: InputDecoration(
         label: Text(label),
         labelStyle: const TextStyle(
-            color: DuroSystemColors.meioBranco, fontWeight: FontWeight.bold),
+            color: DuroSystemColors.vermelho, fontWeight: FontWeight.bold),
         enabledBorder: minhaBorder(),
         focusedBorder: minhaBorder(),
         errorBorder: minhaBorder(),
         focusedErrorBorder: minhaBorder(),
         hintMaxLines: 1,
         floatingLabelStyle: const TextStyle(
-          color: Colors.white,
+          color: DuroSystemColors.vermelho,
           fontWeight: FontWeight.bold,
           fontStyle: FontStyle.italic,
         ),
@@ -50,6 +56,7 @@ class MeutextformWidget extends StatelessWidget {
           height: 0.8,
           decoration: TextDecoration.underline,
         ),
+        suffix: suffix ?? const SizedBox(),
         contentPadding: const EdgeInsets.only(left: 20),
         constraints: const BoxConstraints(maxWidth: 300),
       ),
@@ -59,6 +66,5 @@ class MeutextformWidget extends StatelessWidget {
 
 OutlineInputBorder minhaBorder() => OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
-      borderSide:
-          const BorderSide(color: DuroSystemColors.meioBranco, width: 2),
+      borderSide: const BorderSide(color: DuroSystemColors.vermelho, width: 2),
     );

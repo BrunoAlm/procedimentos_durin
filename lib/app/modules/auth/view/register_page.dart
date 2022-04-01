@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
 import 'package:procedimentos_durin/app/modules/auth/controller/auth_store.dart';
+import 'package:procedimentos_durin/app/modules/auth/widgets/botaoDoOlhinho.dart';
 import 'package:procedimentos_durin/app/modules/auth/widgets/meuDropdown.dart';
 import 'package:procedimentos_durin/app/modules/auth/widgets/meutextform_widget.dart';
 
@@ -34,124 +35,142 @@ class RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     _authController.getUsers();
-
     super.initState();
   }
 
   bool visible = true;
   bool logou = false;
+  bool obscureText = true;
 
   @override
   Widget build(BuildContext context) {
     final nomeEC = TextEditingController();
     final senhaEC = TextEditingController();
-    // final setorEC = TextEditingController();
-    // var model = UserModel(usuario: usuarioEC.text, senha: senhaEC.text);
+
+    var LarguraDaTela = MediaQuery.of(context).size.width;
+    var AlturaDaTela = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: DuroSystemColors.vermelho,
+        backgroundColor: DuroSystemColors.meioBranco,
         elevation: 0,
         leading: IconButton(
             onPressed: () {
               Modular.to.navigate('./login');
             },
-            icon: const Icon(Icons.arrow_back)),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: DuroSystemColors.vermelho,
+            )),
       ),
       extendBodyBehindAppBar: true,
-      backgroundColor: DuroSystemColors.vermelho,
+      backgroundColor: DuroSystemColors.meioBranco,
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Image.asset(
-                  'assets/splash_screen_logo.png',
-                  color: DuroSystemColors.meioBranco,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: AlturaDaTela * 0.8,
+            maxWidth: LarguraDaTela * 0.4,
+          ),
+          child: SizedBox.expand(
+            child: Card(
+              // color: Colors.black.withOpacity(0.3),
+              color: DuroSystemColors.meioBranco,
+              elevation: 10,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Image.asset(
+                      'assets/splash_screen_logo.png',
+                      color: DuroSystemColors.vermelho,
+                    ),
+                    const SizedBox(height: 30),
+                    const Text(
+                      'Criar conta',
+                      style: TextStyle(
+                        color: DuroSystemColors.vermelho,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    MeutextformWidget(
+                      label: 'Usuário',
+                      controller: nomeEC,
+                      onChanged: _authController.setName,
+                      obscureText: false,
+                      validator: (value) =>
+                          value!.isEmpty ? 'Preencha o campo' : null,
+                    ),
+                    const SizedBox(height: 15),
+                    MeutextformWidget(
+                      label: 'Senha',
+                      controller: senhaEC,
+                      onChanged: _authController.setSenha,
+                      validator: (value) =>
+                          value!.isEmpty ? 'Preencha o campo' : null,
+                      obscureText: obscureText,
+                      suffix: BotaoDoOlhinho(onPressed: () {
+                        setState(() {
+                          obscureText = !obscureText;
+                        });
+                      }),
+                    ),
+                    const SizedBox(height: 15),
+                    CustomDropdownButton2(
+                      value: _authController.selectedValue,
+                      validator: (value) {
+                        return value == null ? 'Preencha o campo' : null;
+                      },
+                      dropdownItems: listaSetores,
+                      onChanged: (value) {
+                        _authController.selectedValue = value as String;
+                        _authController.setSetor(value);
+                      },
+                      hint: 'Selecione o setor',
+                      buttonHeight: 50,
+                      buttonWidth: 300,
+                      offset: const Offset((300 * 0.07), -10),
+                      dropdownWidth: 250,
+                      dropdownHeight: 150,
+                      itemHeight: 40,
+                      scrollbarAlwaysShow: true,
+                    ),
+                    const SizedBox(height: 35),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _authController.addUser();
+                          Modular.to.navigate('./login');
+                        }
+                      },
+                      child: visible
+                          ? const Text(
+                              'Criar conta',
+                              style: TextStyle(
+                                fontSize: 16,
+                                // fontWeight: FontWeight.bold,
+                                color: DuroSystemColors.meioBranco,
+                              ),
+                            )
+                          : Container(
+                              height: 16,
+                              width: 16,
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 13, vertical: 2),
+                              child: const CircularProgressIndicator(
+                                color: DuroSystemColors.meioBranco,
+                              )),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(20),
+                        primary: DuroSystemColors.vermelho,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 30),
-                const Text(
-                  'Criar conta',
-                  style: TextStyle(
-                    color: DuroSystemColors.meioBranco,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 30),
-                MeutextformWidget(
-                  label: 'Usuário',
-                  controller: nomeEC,
-                  onChanged: _authController.setName,
-                  obscureText: false,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Preencha o campo' : null,
-                ),
-                const SizedBox(height: 15),
-                MeutextformWidget(
-                  label: 'Senha',
-                  controller: senhaEC,
-                  onChanged: _authController.setSenha,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Preencha o campo' : null,
-                  obscureText: true,
-                ),
-                const SizedBox(height: 15),
-                CustomDropdownButton2(
-                  value: _authController.selectedValue,
-                  validator: (value) {
-                    return value != _authController.selectedValue
-                        ? 'Preencha o campo'
-                        : null;
-                  },
-                  dropdownItems: listaSetores,
-                  onChanged: (value) {
-                    _authController.selectedValue = value as String;
-                    _authController.setSetor(value);
-                  },
-                  hint: 'Selecione o setor',
-                  buttonHeight: 50,
-                  buttonWidth: 300,
-                  offset: const Offset((300 * 0.07), -10),
-                  dropdownWidth: 250,
-                  dropdownHeight: 150,
-                  itemHeight: 40,
-                  scrollbarAlwaysShow: true,
-                ),
-                const SizedBox(height: 35),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _authController.addUser();
-                      Modular.to.navigate('./login');
-                    }
-                  },
-                  child: visible
-                      ? const Text(
-                          'Criar conta',
-                          style: TextStyle(
-                            fontSize: 16,
-                            // fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        )
-                      : Container(
-                          height: 16,
-                          width: 16,
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 13, vertical: 2),
-                          child: const CircularProgressIndicator(
-                            color: DuroSystemColors.vermelho,
-                          )),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(20),
-                    primary: DuroSystemColors.meioBranco,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),

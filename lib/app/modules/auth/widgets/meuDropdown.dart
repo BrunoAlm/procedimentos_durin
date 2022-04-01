@@ -69,6 +69,7 @@ class CustomDropdownButton2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButtonFormField2(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         //To avoid long text overflowing.
         isExpanded: true,
@@ -83,7 +84,7 @@ class CustomDropdownButton2 extends StatelessWidget {
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: DuroSystemColors.meioBranco,
+              color: DuroSystemColors.vermelho,
             ),
           ),
         ),
@@ -99,7 +100,7 @@ class CustomDropdownButton2 extends StatelessWidget {
                       maxLines: 1,
                       style: const TextStyle(
                         fontSize: 14,
-                        color: DuroSystemColors.meioBranco,
+                        color: DuroSystemColors.vermelho,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -111,20 +112,22 @@ class CustomDropdownButton2 extends StatelessWidget {
         icon: icon ??
             const Icon(
               Icons.arrow_downward,
-              color: DuroSystemColors.meioBranco,
+              color: DuroSystemColors.vermelho,
             ),
         iconSize: iconSize ?? 16,
         iconEnabledColor: iconEnabledColor,
         iconDisabledColor: iconDisabledColor,
         buttonHeight: buttonHeight ?? 40,
         buttonWidth: buttonWidth ?? 140,
-        buttonPadding:
-            buttonPadding ?? const EdgeInsets.only(left: 14, right: 14),
-
+        buttonPadding: buttonPadding ??
+            const EdgeInsets.only(
+              // left: 14,
+              right: 14,
+            ),
         decoration: InputDecoration(
           // label: Text(label),
           labelStyle: const TextStyle(
-              color: DuroSystemColors.meioBranco, fontWeight: FontWeight.bold),
+              color: DuroSystemColors.vermelho, fontWeight: FontWeight.bold),
           enabledBorder: minhaBorder(),
           focusedBorder: minhaBorder(),
           errorBorder: minhaBorder(),
@@ -145,6 +148,7 @@ class CustomDropdownButton2 extends StatelessWidget {
             height: 0.8,
             decoration: TextDecoration.underline,
           ),
+
           contentPadding: const EdgeInsets.only(left: 20),
           constraints: const BoxConstraints(maxWidth: 300),
         ),
@@ -167,7 +171,7 @@ class CustomDropdownButton2 extends StatelessWidget {
         dropdownDecoration: dropdownDecoration ??
             BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: DuroSystemColors.vermelho,
+              color: DuroSystemColors.meioBranco,
             ),
         dropdownElevation: dropdownElevation ?? 8,
         scrollbarRadius: scrollbarRadius ?? const Radius.circular(40),

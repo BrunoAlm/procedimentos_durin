@@ -21,7 +21,7 @@ class SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: DuroSystemColors.meioBranco,
+        backgroundColor: DuroSystemColors.vermelho,
         body: Center(
           child: Column(
             children: [
@@ -29,7 +29,7 @@ class SplashPageState extends State<SplashPage> {
               Image.asset(
                 'assets/splash_screen_logo.png',
                 height: 150,
-                color: DuroSystemColors.vermelho,
+                color: DuroSystemColors.meioBranco,
               ),
               const Spacer(),
               SizedBox(
@@ -41,7 +41,7 @@ class SplashPageState extends State<SplashPage> {
                       height: 20,
                       width: 20,
                       child: CircularProgressIndicator(
-                          color: DuroSystemColors.vermelho, strokeWidth: 3),
+                          color: DuroSystemColors.meioBranco, strokeWidth: 3),
                     ),
                     SizedBox(width: 10),
                     Text('Carregando...'),
