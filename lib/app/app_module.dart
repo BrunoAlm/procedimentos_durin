@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hasura_connect/hasura_connect.dart';
 import 'package:procedimentos_durin/app/modules/splash/splash_module.dart';

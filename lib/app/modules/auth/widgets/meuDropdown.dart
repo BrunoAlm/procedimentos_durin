@@ -3,7 +3,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
-import 'package:procedimentos_durin/app/modules/auth/widgets/meutextform_widget.dart';
 
 class CustomDropdownButton2 extends StatelessWidget {
   final String hint;
@@ -73,7 +72,7 @@ class CustomDropdownButton2 extends StatelessWidget {
         validator: validator,
         //To avoid long text overflowing.
         isExpanded: true,
-        selectedItemHighlightColor: Colors.black.withOpacity(0.3),
+        selectedItemHighlightColor: Colors.grey[400],
         focusColor: Colors.transparent,
         hint: Container(
           alignment: hintAlignment,
@@ -125,13 +124,12 @@ class CustomDropdownButton2 extends StatelessWidget {
               right: 14,
             ),
         decoration: InputDecoration(
-          // label: Text(label),
           labelStyle: const TextStyle(
               color: DuroSystemColors.vermelho, fontWeight: FontWeight.bold),
-          enabledBorder: minhaBorder(),
-          focusedBorder: minhaBorder(),
-          errorBorder: minhaBorder(),
-          focusedErrorBorder: minhaBorder(),
+          enabledBorder: _minhaBorder(),
+          focusedBorder: _minhaBorder(),
+          errorBorder: _minhaBorder(),
+          focusedErrorBorder: _minhaBorder(),
           hintMaxLines: 1,
           floatingLabelStyle: const TextStyle(
             color: Colors.white,
@@ -148,18 +146,9 @@ class CustomDropdownButton2 extends StatelessWidget {
             height: 0.8,
             decoration: TextDecoration.underline,
           ),
-
           contentPadding: const EdgeInsets.only(left: 20),
           constraints: const BoxConstraints(maxWidth: 300),
         ),
-        // buttonDecoration: buttonDecoration ??
-        //     BoxDecoration(
-        //       borderRadius: BorderRadius.circular(10),
-        //       border: Border.all(
-        //         color: DuroSystemColors.meioBranco,
-        //         width: 2,
-        //       ),
-        //     ),
         buttonElevation: buttonElevation,
         itemHeight: itemHeight ?? 40,
         itemPadding: itemPadding ?? const EdgeInsets.only(left: 14, right: 14),
@@ -184,3 +173,8 @@ class CustomDropdownButton2 extends StatelessWidget {
     );
   }
 }
+
+OutlineInputBorder _minhaBorder() => OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: const BorderSide(color: DuroSystemColors.vermelho, width: 2),
+    );

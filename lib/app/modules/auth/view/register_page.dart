@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
 import 'package:procedimentos_durin/app/modules/auth/controller/auth_store.dart';
+import 'package:procedimentos_durin/app/modules/auth/controller/validators.dart';
 import 'package:procedimentos_durin/app/modules/auth/widgets/meuDropdown.dart';
 import 'package:procedimentos_durin/app/modules/auth/widgets/meutextform_widget.dart';
+import 'package:validatorless/validatorless.dart';
 
 class RegisterPage extends StatefulWidget {
   final String title;
@@ -66,12 +68,13 @@ class RegisterPageState extends State<RegisterPage> {
       body: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            maxHeight: isMobile ? _alturaDaTela * 0.7 : _alturaDaTela * 0.8,
+            maxHeight: isMobile ? _alturaDaTela * 0.9 : _alturaDaTela * 0.9,
             maxWidth: isMobile ? _larguraDaTela * 0.9 : _larguraDaTela * 0.4,
           ),
           child: SizedBox.expand(
             child: Card(
               // color: Colors.black.withOpacity(0.3),
+              margin: const EdgeInsets.only(top: 30),
               color: DuroSystemColors.meioBranco,
               elevation: 10,
               child: Form(
@@ -98,16 +101,25 @@ class RegisterPageState extends State<RegisterPage> {
                       label: 'Usuário',
                       controller: nomeEC,
                       onChanged: _authController.setName,
-                      validator: (value) =>
-                          value!.isEmpty ? 'Preencha o campo' : null,
+                      validator: Validatorless.multiple([
+                        Validatorless.required('Usuário requerido'),
+                        Validatorless.min(8, 'Mínimo: 8 caracteres'),
+                        Validatorless.max(20, 'Máximo: 20 caracteres'),
+                        Validators.contemEspaco('Não pode ter espaço'),
+                      ]),
                     ),
                     const SizedBox(height: 15),
                     MeutextformWidget(
                       label: 'Senha',
                       controller: senhaEC,
                       onChanged: _authController.setSenha,
-                      validator: (value) =>
-                          value!.isEmpty ? 'Preencha o campo' : null,
+                      obscureText: true,
+                      validator: Validatorless.multiple([
+                        Validatorless.required('Senha requerida'),
+                        Validatorless.min(4, 'Mínimo: 4 caracteres'),
+                        Validatorless.max(12, 'Máximo: 12 caracteres'),
+                        Validators.contemEspaco('Não pode ter espaço'),
+                      ]),
                       suffix: 'sim',
                     ),
                     const SizedBox(height: 15),

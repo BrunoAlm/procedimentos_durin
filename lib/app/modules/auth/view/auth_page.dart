@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
 import 'package:procedimentos_durin/app/modules/auth/controller/auth_store.dart';
+import 'package:procedimentos_durin/app/modules/auth/controller/validators.dart';
 import 'package:procedimentos_durin/app/modules/auth/widgets/meutextform_widget.dart';
 import 'package:asuka/asuka.dart' as asuka;
+import 'package:validatorless/validatorless.dart';
 
 class AuthPage extends StatefulWidget {
   final String title;
@@ -14,11 +16,20 @@ class AuthPage extends StatefulWidget {
 
 class AuthPageState extends State<AuthPage> {
   final AuthController _authController = Modular.get();
+  final nomeEC = TextEditingController();
+  final senhaEC = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    nomeEC.dispose();
+    senhaEC.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
     _authController.getUsers();
-
     super.initState();
   }
 
@@ -27,9 +38,6 @@ class AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    final nomeEC = TextEditingController();
-    final senhaEC = TextEditingController();
-    final _formKey = GlobalKey<FormState>();
     // var model = UserModel(usuario: usuarioEC.text, senha: senhaEC.text);
     return Scaffold(
       backgroundColor: DuroSystemColors.meioBranco,
@@ -39,7 +47,6 @@ class AuthPageState extends State<AuthPage> {
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(flex: 1),
               Image.asset(
@@ -60,24 +67,36 @@ class AuthPageState extends State<AuthPage> {
                 label: 'Usuário',
                 controller: nomeEC,
                 onChanged: _authController.setName,
-                validator: (value) =>
-                    value!.isEmpty ? 'Preencha o campo' : null,
+                validator: Validatorless.multiple([
+                  Validatorless.required('Usuário requerido'),
+                  Validatorless.min(8, 'Mínimo: 8 caracteres'),
+                  Validatorless.max(20, 'Máximo: 20 caracteres'),
+                  Validators.contemEspaco('Não pode ter espaço'),
+                ]),
+                // validator: (value) =>
+                //     value!.isEmpty ? 'Preencha o campo' : null,
               ),
               const SizedBox(height: 15),
               MeutextformWidget(
                 label: 'Senha',
                 controller: senhaEC,
                 onChanged: _authController.setSenha,
+                obscureText: true,
                 suffix: 'sim',
-                validator: (value) =>
-                    value!.isEmpty ? 'Preencha o campo' : null,
+                validator: Validatorless.multiple([
+                  Validatorless.required('Senha requerida'),
+                  Validatorless.min(4, 'Mínimo: 4 caracteres'),
+                  Validatorless.max(12, 'Máximo: 12 caracteres'),
+                  Validators.contemEspaco('Não pode ter espaço'),
+                ]),
               ),
               const SizedBox(height: 35),
               ElevatedButton(
                 onPressed: () async {
+                  bool validacao = _formKey.currentState?.validate() ?? false;
                   // ignore: unused_local_variable
                   String? nomeEncontrado, senhaEncontrada;
-                  if (_formKey.currentState!.validate()) {
+                  if (validacao) {
                     setState(() {
                       visible = false;
                     });
@@ -85,9 +104,9 @@ class AuthPageState extends State<AuthPage> {
                     setState(() {
                       visible = true;
                     });
+
                     if (_authController.listUsers.isNotEmpty) {
                       for (var item in _authController.listUsers) {
-                        print(item.nome);
                         if (item.nome == nomeEC.value.text &&
                             item.senha == senhaEC.value.text) {
                           nomeEncontrado = item.nome;
@@ -98,22 +117,8 @@ class AuthPageState extends State<AuthPage> {
                         }
                       }
                       if (logou) {
-                        print('tem');
                         Modular.to.navigate('./home');
                       } else {
-                        print('n tem usuario');
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //     const SnackBar(
-                        //         dismissDirection: DismissDirection.up,
-                        //         behavior: SnackBarBehavior.floating,
-                        //         margin: EdgeInsets.symmetric(
-                        //             horizontal: 500, vertical: 150),
-                        //         content: SizedBox(
-                        //             height: 200,
-                        //             width: 200,
-                        //             child: Center(
-                        //                 child: Text(
-                        //                     'Usuario ou senha incorretos')))));
                         asuka.AsukaSnackbar.alert("Usuário ou senha incorretos")
                             .show();
                       }

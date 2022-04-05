@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
@@ -26,9 +28,7 @@ class _BotaoDoOlhinhoState extends State<BotaoDoOlhinho> {
         minHeight: 2,
       ),
       icon: Icon(
-        _authController.obscureText
-            ? Icons.remove_red_eye_outlined
-            : Icons.no_encryption,
+        _authController.obscureText ? Icons.visibility : Icons.visibility_off,
         color: DuroSystemColors.vermelho,
       ),
     );
