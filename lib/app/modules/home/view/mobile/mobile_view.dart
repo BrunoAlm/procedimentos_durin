@@ -17,6 +17,29 @@ class _MobileViewState extends State<MobileView> {
         title: Text(widget.title),
       ),
       body: Container(color: DuroSystemColors.meioBranco),
+      drawer: Drawer(
+        backgroundColor: DuroSystemColors.meioBranco,
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.close_rounded),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            FloatingActionButton.extended(
+                onPressed: () {},
+                label: const Text(
+                  'ABRIR CHAMADO',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+          ],
+        ),
+      ),
     );
   }
 }

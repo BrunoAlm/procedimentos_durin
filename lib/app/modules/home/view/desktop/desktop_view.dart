@@ -24,9 +24,11 @@ class _DesktopViewState extends State<DesktopView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: DuroSystemColors.meioBranco,
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
-          color: Colors.black,
+          splashRadius: 18,
           onPressed: () {
             setState(() {
               larguraDrawer = isExpanded ? 70 : 200;
@@ -40,8 +42,15 @@ class _DesktopViewState extends State<DesktopView> {
               );
             });
           },
-          icon: const Icon(Icons.list_rounded),
+          icon: const Icon(Icons.list),
         ),
+        actions: [
+          IconButton(
+            splashRadius: 18,
+            onPressed: () {},
+            icon: const Icon(Icons.abc),
+          ),
+        ],
         title: Text(widget.title),
       ),
       body: Row(
@@ -54,18 +63,28 @@ class _DesktopViewState extends State<DesktopView> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 250),
               width: larguraDrawer,
-              color: DuroSystemColors.vermelho,
+              decoration: const BoxDecoration(
+                color: DuroSystemColors.meioBranco,
+                border: Border(
+                  right: BorderSide(
+                    width: 3,
+                    color: Colors.black12,
+                  ),
+                ),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
+                    const SizedBox(height: 20),
+
                     FloatingActionButton.extended(
                       onPressed: () {},
                       label: isExpanded
                           ? const Text(
                               'ABRIR CHAMADO',
                               style: TextStyle(
-                                color: DuroSystemColors.vermelho,
+                                // color: DuroSystemColors.vermelho,
                                 fontWeight: FontWeight.bold,
                               ),
                             )
@@ -74,11 +93,11 @@ class _DesktopViewState extends State<DesktopView> {
                               width: 20,
                               child: Icon(
                                 Icons.add,
-                                color: DuroSystemColors.vermelho,
+                                // color: DuroSystemColors.vermelho,
                                 size: 18,
                               ),
                             ),
-                      backgroundColor: DuroSystemColors.meioBranco,
+                      // backgroundColor: DuroSystemColors.vermelho,
                     ),
                     const Spacer(),
                     Padding(
@@ -91,7 +110,7 @@ class _DesktopViewState extends State<DesktopView> {
                           padding: isExpanded
                               ? const EdgeInsets.symmetric(horizontal: 10)
                               : EdgeInsets.zero,
-                          primary: DuroSystemColors.meioBranco,
+                          // primary: DuroSystemColors.meioBranco,
                         ),
                         icon: const Icon(Icons.exit_to_app),
                         label: isExpanded
@@ -104,6 +123,8 @@ class _DesktopViewState extends State<DesktopView> {
                             : const SizedBox(),
                       ),
                     ),
+                    const SizedBox(height: 10),
+
                     // SizedBox(
                     //   height: 30,
                     //   child: TextField(
@@ -125,26 +146,26 @@ class _DesktopViewState extends State<DesktopView> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: IconButton(
-              color: Colors.black,
-              onPressed: () {
-                setState(() {
-                  larguraDrawer = isExpanded ? 70 : 200;
-                  Future.delayed(
-                    const Duration(milliseconds: 100),
-                    () {
-                      setState(() {
-                        isExpanded = !isExpanded;
-                      });
-                    },
-                  );
-                });
-              },
-              icon: const Icon(Icons.list_rounded),
-            ),
-          ),
+          // Align(
+          //   alignment: Alignment.topLeft,
+          //   child: IconButton(
+          //     color: Colors.black,
+          //     onPressed: () {
+          //       setState(() {
+          //         larguraDrawer = isExpanded ? 70 : 200;
+          //         Future.delayed(
+          //           const Duration(milliseconds: 100),
+          //           () {
+          //             setState(() {
+          //               isExpanded = !isExpanded;
+          //             });
+          //           },
+          //         );
+          //       });
+          //     },
+          //     icon: const Icon(Icons.list_rounded),
+          //   ),
+          // ),
         ],
       ),
     );

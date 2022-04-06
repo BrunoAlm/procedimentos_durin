@@ -67,10 +67,10 @@ class AuthPageState extends State<AuthPage> {
                 label: 'Usuário',
                 controller: nomeEC,
                 onChanged: _authController.setName,
+                maxLength: 20,
                 validator: Validatorless.multiple([
                   Validatorless.required('Usuário requerido'),
                   Validatorless.min(8, 'Mínimo: 8 caracteres'),
-                  Validatorless.max(20, 'Máximo: 20 caracteres'),
                   Validators.contemEspaco('Não pode ter espaço'),
                 ]),
                 // validator: (value) =>
@@ -80,13 +80,13 @@ class AuthPageState extends State<AuthPage> {
               MeutextformWidget(
                 label: 'Senha',
                 controller: senhaEC,
+                maxLength: 12,
                 onChanged: _authController.setSenha,
                 obscureText: true,
                 suffix: 'sim',
                 validator: Validatorless.multiple([
                   Validatorless.required('Senha requerida'),
                   Validatorless.min(4, 'Mínimo: 4 caracteres'),
-                  Validatorless.max(12, 'Máximo: 12 caracteres'),
                   Validators.contemEspaco('Não pode ter espaço'),
                 ]),
               ),

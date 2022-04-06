@@ -12,6 +12,7 @@ class MeutextformWidget extends StatefulWidget {
     required this.onChanged,
     this.suffix,
     this.obscureText = false,
+    this.maxLength = 4,
   }) : super(key: key);
 
   final String label;
@@ -20,6 +21,7 @@ class MeutextformWidget extends StatefulWidget {
   final Function(String)? onChanged;
   final String? suffix;
   bool obscureText;
+  final int maxLength;
 
   @override
   State<MeutextformWidget> createState() => _MeutextformWidgetState();
@@ -30,6 +32,7 @@ class _MeutextformWidgetState extends State<MeutextformWidget> {
   Widget build(BuildContext context) {
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      maxLength: widget.maxLength,
       validator: widget.validator,
       controller: widget.controller,
       obscureText: widget.obscureText,
@@ -58,11 +61,11 @@ class _MeutextformWidgetState extends State<MeutextformWidget> {
           color: Colors.black54,
           fontSize: 14,
           //backgroundColor: Colors.white.withOpacity(0.5),
-          wordSpacing: 1.4,
-          fontWeight: FontWeight.bold,
-          fontStyle: FontStyle.italic,
+          wordSpacing: -1,
+          // fontWeight: FontWeight.bold,
+          // fontStyle: FontStyle.italic,
           height: 0.8,
-          decoration: TextDecoration.underline,
+          // decoration: TextDecoration.underline,
         ),
         suffix: widget.suffix == 'sim'
             ? BotaoDoOlhinho(

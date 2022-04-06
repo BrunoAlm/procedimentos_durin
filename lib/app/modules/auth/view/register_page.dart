@@ -101,6 +101,7 @@ class RegisterPageState extends State<RegisterPage> {
                       label: 'Usuário',
                       controller: nomeEC,
                       onChanged: _authController.setName,
+                      maxLength: 20,
                       validator: Validatorless.multiple([
                         Validatorless.required('Usuário requerido'),
                         Validatorless.min(8, 'Mínimo: 8 caracteres'),
@@ -112,6 +113,7 @@ class RegisterPageState extends State<RegisterPage> {
                     MeutextformWidget(
                       label: 'Senha',
                       controller: senhaEC,
+                      maxLength: 12,
                       onChanged: _authController.setSenha,
                       obscureText: true,
                       validator: Validatorless.multiple([
