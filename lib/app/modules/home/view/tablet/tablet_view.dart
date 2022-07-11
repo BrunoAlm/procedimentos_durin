@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:procedimentos_durin/app/design/durosystem.dart';
+import 'package:procedimentos_durin/app/modules/home/widgets/drawer.dart';
 
 class TabletView extends StatefulWidget {
   final String title;
@@ -16,6 +17,7 @@ class _TabletViewState extends State<TabletView> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      drawer: const DrawerMobile(),
       body: Container(color: DuroSystemColors.meioBranco),
     );
   }

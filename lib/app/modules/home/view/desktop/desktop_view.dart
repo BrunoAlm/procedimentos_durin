@@ -16,7 +16,7 @@ class _DesktopViewState extends State<DesktopView> {
 
   @override
   void initState() {
-    larguraDrawer = 70;
+    larguraDrawer = 80;
     isExpanded = false;
     super.initState();
   }
@@ -31,7 +31,7 @@ class _DesktopViewState extends State<DesktopView> {
           splashRadius: 18,
           onPressed: () {
             setState(() {
-              larguraDrawer = isExpanded ? 70 : 200;
+              larguraDrawer = isExpanded ? 80 : 200;
               Future.delayed(
                 const Duration(milliseconds: 100),
                 () {
@@ -42,7 +42,7 @@ class _DesktopViewState extends State<DesktopView> {
               );
             });
           },
-          icon: const Icon(Icons.list),
+          icon: const Center(child: Icon(Icons.list)),
         ),
         actions: [
           IconButton(
