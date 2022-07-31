@@ -15,7 +15,8 @@ class AppWidget extends StatelessWidget {
       ],
       debugShowCheckedModeBanner: false,
       title: 'Procedimentos Durín',
-      theme: ThemeData(primarySwatch: DuroSystemColors.paletaVermelho),
+      theme: ThemeData(
+          primarySwatch: DuroSystemColors.paletaVermelho, fontFamily: 'Nunito'),
     ).modular();
   }
 }

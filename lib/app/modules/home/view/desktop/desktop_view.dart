@@ -23,6 +23,8 @@ class _DesktopViewState extends State<DesktopView> {
 
   @override
   Widget build(BuildContext context) {
+    double _larguraTela = MediaQuery.of(context).size.width;
+    double _alturaTela = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: DuroSystemColors.meioBranco,
       appBar: AppBar(
@@ -44,12 +46,17 @@ class _DesktopViewState extends State<DesktopView> {
           },
           icon: const Center(child: Icon(Icons.list)),
         ),
-        actions: [
-          IconButton(
-            splashRadius: 18,
-            onPressed: () {},
-            icon: const Icon(Icons.abc),
+        actions: const [
+          CircleAvatar(
+            maxRadius: 20,
+            backgroundColor: DuroSystemColors.meioBranco,
+            child: Center(
+                child: Text(
+              'img',
+              style: TextStyle(fontSize: 12),
+            )),
           ),
+          SizedBox(width: 20),
         ],
         title: Text(widget.title),
       ),
@@ -63,12 +70,12 @@ class _DesktopViewState extends State<DesktopView> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 250),
               width: larguraDrawer,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: DuroSystemColors.meioBranco,
                 border: Border(
                   right: BorderSide(
-                    width: 3,
-                    color: Colors.black12,
+                    width: 2,
+                    color: Colors.black.withOpacity(0.2),
                   ),
                 ),
               ),
@@ -79,14 +86,14 @@ class _DesktopViewState extends State<DesktopView> {
                     const SizedBox(height: 20),
 
                     FloatingActionButton.extended(
-                      onPressed: () {},
+                      onPressed: () => Modular.to.pushNamed('chamados/criar'),
                       label: isExpanded
                           ? const Text(
                               'ABRIR CHAMADO',
                               style: TextStyle(
-                                // color: DuroSystemColors.vermelho,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  // color: DuroSystemColors.vermelho,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0),
                             )
                           : const SizedBox(
                               height: 20,
@@ -99,6 +106,21 @@ class _DesktopViewState extends State<DesktopView> {
                             ),
                       // backgroundColor: DuroSystemColors.vermelho,
                     ),
+                    const SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () => Modular.to.pushNamed('chamados/exibir'),
+                      child: isExpanded
+                          ? const Text('Abertos')
+                          : const Icon(Icons.list_alt),
+                    ),
+                    const SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () => Modular.to.pushNamed('chamados/exibir'),
+                      child: isExpanded
+                          ? const Text('Concluídos')
+                          : const Icon(Icons.done_all_outlined),
+                    ),
+                    const Divider(),
                     const Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -146,6 +168,157 @@ class _DesktopViewState extends State<DesktopView> {
               ),
             ),
           ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.center,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: _alturaTela * .8,
+                  maxWidth: _larguraTela * .8,
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: DuroSystemColors.vermelho,
+                      style: BorderStyle.solid,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  padding: const EdgeInsets.all(20),
+                  child: Container(
+                    color: DuroSystemColors.meioBranco,
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                  color: Colors.black.withOpacity(0.2)),
+                              left: BorderSide(
+                                  color: Colors.black.withOpacity(0.2)),
+                            ),
+                          ),
+                          padding: const EdgeInsets.all(8),
+                          child: const Text(
+                            'Dashboard - Resumo mensal',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: double.infinity,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black.withOpacity(0.6),
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          height: double.infinity,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.red.withOpacity(.6),
+                                            ),
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: const [
+                                              FlutterLogo(size: 50),
+                                              SizedBox(height: 20),
+                                              Text(
+                                                  'Gráfico manero, seleciona os pontos e mostra o tanto'),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: Container(
+                                          height: double.infinity,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color:
+                                                  Colors.green.withOpacity(.6),
+                                            ),
+                                          ),
+                                          child: const Center(
+                                            child: Text(
+                                                'quem que abriu mais e pá e os numero'),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Expanded(
+                                    child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        height: double.infinity,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.deepPurple
+                                                .withOpacity(.6),
+                                          ),
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                              'n sei q tem coisarada demais\ntop demais os negocio'),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Expanded(
+                                      child: Container(
+                                        height: double.infinity,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.blue.withOpacity(.6),
+                                          ),
+                                        ),
+                                        child: const FlutterLogo(),
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
           // Align(
           //   alignment: Alignment.topLeft,
           //   child: IconButton(
@@ -172,8 +345,8 @@ class _DesktopViewState extends State<DesktopView> {
   }
 }
 
-OutlineInputBorder _minhaBorder() => OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
-      borderSide:
-          const BorderSide(color: DuroSystemColors.meioBranco, width: 2),
-    );
+// OutlineInputBorder _minhaBorder() => OutlineInputBorder(
+//       borderRadius: BorderRadius.circular(10),
+//       borderSide:
+//           const BorderSide(color: DuroSystemColors.meioBranco, width: 2),
+//     );

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-class ChamadosPage extends StatefulWidget {
+class ExibirChamadosPage extends StatefulWidget {
   final String title;
-  const ChamadosPage({Key? key, this.title = 'ChamadosPage'}) : super(key: key);
+  const ExibirChamadosPage({Key? key, required this.title})
+      : super(key: key);
   @override
-  ChamadosPageState createState() => ChamadosPageState();
+  ExibirChamadosPageState createState() => ExibirChamadosPageState();
 }
 
-class ChamadosPageState extends State<ChamadosPage> {
+class ExibirChamadosPageState extends State<ExibirChamadosPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
